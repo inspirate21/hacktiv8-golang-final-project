@@ -41,6 +41,8 @@ func NewRouter(r *gin.Engine, db *gorm.DB) {
 	srvPhoto := servicephoto.New(repoPhoto)
 	ctrlPhoto := controllerphoto.New(srvPhoto)
 
+	r.GET("/", ctrlPhoto.GetPhotos)
+
 	r.GET("photos", middleware.Authorization, ctrlPhoto.GetPhotos)
 	r.POST("photos", middleware.Authorization, ctrlPhoto.Create)
 	r.PUT("photos/:photoID", middleware.Authorization, ctrlPhoto.Update)
